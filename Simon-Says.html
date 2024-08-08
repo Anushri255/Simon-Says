@@ -113,5 +113,25 @@ button {
         isPlaying = false;
         statusText.textContent = `Score: ${score}`;
     }
+    function nextLevel() {
+        level++;
+        playerSequence = [];
+        const randomColor = colors[Math.floor(Math.random() * colors.length)];
+        sequence.push(randomColor);
+        playSequence();
+        }
+
+    function playSequence() {
+        let i = 0;
+        const interval = setInterval(() => {
+            playColor(sequence[i]);
+            i++;
+            if (i >= sequence.length) {
+                clearInterval(interval);
+            }
+        }, 1000);
+    }
+
+
 </script>
 </html>
