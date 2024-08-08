@@ -1,1 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Simon Says</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+}
 
+h1 {
+    margin: 20px;
+}
+
+.game-container {
+    display: grid;
+    grid-template-columns: repeat(2, 150px);
+    grid-gap: 20px;
+    justify-content: center;
+    margin: 20px auto;
+}
+
+.color-button {
+    width: 150px;
+    height: 150px;
+    border-radius: 10px;
+    cursor: pointer;
+    opacity: 0.8;
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+.color-button:active {
+    transform: scale(0.95);
+}
+
+#red {
+    background-color: red;
+}
+
+#green {
+    background-color: green;
+}
+
+#blue {
+    background-color: blue;
+}
+
+#yellow {
+    background-color: yellow;
+}
+
+.controls {
+    margin: 20px;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.status {
+    margin: 20px;
+    font-size: 18px;
+}
+
+    </style>
+</head>
+<body>
+    <h1>Simon Says</h1>
+    <div class="game-container">
+        <div class="color-button" id="red"></div>
+        <div class="color-button" id="green"></div>
+        <div class="color-button" id="blue"></div>
+        <div class="color-button" id="yellow"></div>
+    </div>
+    <div class="controls">
+        <button id="startBtn">Start Game</button>
+        <button id="resetBtn">Reset Game</button>
+    </div>
+    <div class="status">
+        <p id="status">Score: 0</p>
+    </div>
+</body>
+</html>
