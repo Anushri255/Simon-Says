@@ -85,7 +85,7 @@
     <div class="status">
         <p id="status">Score: 0</p>
     </div>
-    
+
     <script>
         const colors = ['red', 'green', 'blue', 'yellow'];
         let sequence = [];
@@ -155,11 +155,31 @@
 
         function playColor(color) {
             const button = document.getElementById(color);
+            let lightColor;
+
+            switch (color) {
+                case 'red':
+                    lightColor = 'rgba(255, 0, 0, 0.6)'; // Light red
+                    break;
+                case 'green':
+                    lightColor = 'rgba(0, 255, 0, 0.6)'; // Light green
+                    break;
+                case 'blue':
+                    lightColor = 'rgba(0, 0, 255, 0.6)'; // Light blue
+                    break;
+                case 'yellow':
+                    lightColor = 'rgba(255, 255, 0, 0.6)'; // Light yellow
+                    break;
+            }
+
+            button.style.backgroundColor = lightColor;
+            button.style.boxShadow = `0 0 20px ${lightColor}`;
             button.style.opacity = 1;
-            button.style.boxShadow = '0 0 20px white';
+
             setTimeout(() => {
-                button.style.opacity = 0.8;
+                button.style.backgroundColor = color;
                 button.style.boxShadow = 'none';
+                button.style.opacity = 0.8;
             }, 500);
         }
 
