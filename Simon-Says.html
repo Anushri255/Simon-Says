@@ -132,6 +132,18 @@ button {
         }, 1000);
     }
 
+    function playColor(color) {
+    const button = document.getElementById(color);
+    button.style.opacity = 1;
+    setTimeout(() => {
+        button.style.opacity = 0.8;
+    }, 500);
+}
+
+function endGame() {
+    isPlaying = false;
+    statusText.textContent = `Game Over! Final Score: ${score}`;
+}
 
 </script>
 </html>
