@@ -85,4 +85,33 @@ button {
         <p id="status">Score: 0</p>
     </div>
 </body>
+<script>
+    const colors = ['red', 'green', 'blue', 'yellow'];
+    let sequence = [];
+    let playerSequence = [];
+    let score = 0;
+    let level = 0;
+    let isPlaying = false;
+
+    function startGame() {
+    if (!isPlaying) {
+        sequence = [];
+        playerSequence = [];
+        score = 0;
+        level = 0;
+        isPlaying = true;
+        statusText.textContent = `Score: ${score}`;
+        nextLevel();
+        }
+    }
+
+    function resetGame() {
+        sequence = [];
+        playerSequence = [];
+        score = 0;
+        level = 0;
+        isPlaying = false;
+        statusText.textContent = `Score: ${score}`;
+    }
+</script>
 </html>
