@@ -145,5 +145,14 @@ function endGame() {
     statusText.textContent = `Game Over! Final Score: ${score}`;
 }
 
+function checkSequence() {
+    for (let i = 0; i < playerSequence.length; i++) {
+        if (playerSequence[i] !== sequence[i]) {
+            endGame();
+            return;
+        }
+    }
+}
+
 </script>
 </html>
