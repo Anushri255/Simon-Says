@@ -30,7 +30,7 @@
             border-radius: 10px;
             cursor: pointer;
             opacity: 0.8;
-            transition: opacity 0.3s, transform 0.3s;
+            transition: opacity 0.3s, transform 0.3s, box-shadow 0.3s;
         }
 
         .color-button:active {
@@ -85,101 +85,105 @@
     <div class="status">
         <p id="status">Score: 0</p>
     </div>
-</body>
-<script>
-    const colors = ['red', 'green', 'blue', 'yellow'];
-    let sequence = [];
-    let playerSequence = [];
-    let score = 0;
-    let level = 0;
-    let isPlaying = false;
+    
+    <script>
+        const colors = ['red', 'green', 'blue', 'yellow'];
+        let sequence = [];
+        let playerSequence = [];
+        let score = 0;
+        let level = 0;
+        let isPlaying = false;
 
-    const colorButtons = document.querySelectorAll('.color-button');
-    const startBtn = document.getElementById('startBtn');
-    const resetBtn = document.getElementById('resetBtn');
-    const statusText = document.getElementById('status');
+        const colorButtons = document.querySelectorAll('.color-button');
+        const startBtn = document.getElementById('startBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const statusText = document.getElementById('status');
 
-    colorButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            if (isPlaying) {
-                const color = button.id;
-                playerSequence.push(color);
-                playColor(color);
-                checkSequence();
-            }
+        colorButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                if (isPlaying) {
+                    const color = button.id;
+                    playerSequence.push(color);
+                    playColor(color);
+                    checkSequence();
+                }
+            });
         });
-    });
 
-    startBtn.addEventListener('click', startGame);
-    resetBtn.addEventListener('click', resetGame);
+        startBtn.addEventListener('click', startGame);
+        resetBtn.addEventListener('click', resetGame);
 
-    function startGame() {
-        if (!isPlaying) {
+        function startGame() {
+            if (!isPlaying) {
+                sequence = [];
+                playerSequence = [];
+                score = 0;
+                level = 0;
+                isPlaying = true;
+                statusText.textContent = `Score: ${score}`;
+                nextLevel();
+            }
+        }
+
+        function resetGame() {
             sequence = [];
             playerSequence = [];
             score = 0;
             level = 0;
-            isPlaying = true;
+            isPlaying = false;
             statusText.textContent = `Score: ${score}`;
-            nextLevel();
         }
-    }
 
-    function resetGame() {
-        sequence = [];
-        playerSequence = [];
-        score = 0;
-        level = 0;
-        isPlaying = false;
-        statusText.textContent = `Score: ${score}`;
-    }
-    function nextLevel() {
-        level++;
-        playerSequence = [];
-        const randomColor = colors[Math.floor(Math.random() * colors.length)];
-        sequence.push(randomColor);
-        playSequence();
-    }
+        function nextLevel() {
+            level++;
+            playerSequence = [];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            sequence.push(randomColor);
+            playSequence();
+        }
 
-    function playSequence() {
-        let i = 0;
-        const interval = setInterval(() => {
-            playColor(sequence[i]);
-            i++;
-            if (i >= sequence.length) {
-                clearInterval(interval);
+        function playSequence() {
+            let i = 0;
+            const interval = setInterval(() => {
+                playColor(sequence[i]);
+                i++;
+                if (i >= sequence.length) {
+                    clearInterval(interval);
+                }
+            }, 1000);
+        }
+
+        function playColor(color) {
+            const button = document.getElementById(color);
+            button.style.opacity = 1;
+            button.style.boxShadow = '0 0 20px white';
+            setTimeout(() => {
+                button.style.opacity = 0.8;
+                button.style.boxShadow = 'none';
+            }, 500);
+        }
+
+        function endGame() {
+            isPlaying = false;
+            statusText.textContent = `Game Over! Final Score: ${score}`;
+        }
+
+        function checkSequence() {
+            for (let i = 0; i < playerSequence.length; i++) {
+                if (playerSequence[i] !== sequence[i]) {
+                    endGame();
+                    return;
+                }
             }
-        }, 1000);
-    }
 
-    function playColor(color) {
-        const button = document.getElementById(color);
-        button.style.opacity = 1;
-        setTimeout(() => {
-            button.style.opacity = 0.8;
-        }, 500);
-    }
-
-    function endGame() {
-        isPlaying = false;
-        statusText.textContent = `Game Over! Final Score: ${score}`;
-    }
-
-    function checkSequence() {
-        for (let i = 0; i < playerSequence.length; i++) {
-            if (playerSequence[i] !== sequence[i]) {
-                endGame();
-                return;
+            if (playerSequence.length === sequence.length) {
+                score++;
+                statusText.textContent = `Score: ${score}`;
+                setTimeout(nextLevel, 1000);
             }
         }
 
-        if (playerSequence.length === sequence.length) {
-            score++;
-            statusText.textContent = `Score: ${score}`;
-            setTimeout(nextLevel, 1000);
-        }
-    }
-
-</script>
+    </script>
+</body>
 
 </html>
