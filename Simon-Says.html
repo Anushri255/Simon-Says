@@ -67,6 +67,12 @@
             margin: 20px;
             font-size: 18px;
         }
+
+        select {
+            padding: 10px;
+            font-size: 16px;
+            margin-right: 10px;
+        }
     </style>
 </head>
 
@@ -79,6 +85,11 @@
         <div class="color-button" id="yellow"></div>
     </div>
     <div class="controls">
+        <select id="levelSelect">
+            <option value="1000">Easy</option>
+            <option value="700">Medium</option>
+            <option value="400">Hard</option>
+        </select>
         <button id="startBtn">Start Game</button>
         <button id="resetBtn">Reset Game</button>
     </div>
@@ -93,11 +104,13 @@
         let score = 0;
         let level = 0;
         let isPlaying = false;
+        let intervalTime = 1000;
 
         const colorButtons = document.querySelectorAll('.color-button');
         const startBtn = document.getElementById('startBtn');
         const resetBtn = document.getElementById('resetBtn');
         const statusText = document.getElementById('status');
+        const levelSelect = document.getElementById('levelSelect');
 
         colorButtons.forEach(button => {
             button.addEventListener('click', () => {
@@ -112,6 +125,9 @@
 
         startBtn.addEventListener('click', startGame);
         resetBtn.addEventListener('click', resetGame);
+        levelSelect.addEventListener('change', () => {
+            intervalTime = parseInt(levelSelect.value);
+        });
 
         function startGame() {
             if (!isPlaying) {
@@ -150,7 +166,7 @@
                 if (i >= sequence.length) {
                     clearInterval(interval);
                 }
-            }, 1000);
+            }, intervalTime);
         }
 
         function playColor(color) {
